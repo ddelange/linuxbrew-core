@@ -77,6 +77,8 @@ class Perl < Formula
       ENV.activate_extensions!
       ENV.setup_build_environment(formula: self)
       ENV["PERL_MM_USE_DEFAULT"] = "1"
+      # fix for https://github.com/Homebrew/linuxbrew-core/issues/4808
+      system bin/"sh", "-c", "test -f ln -s /usr/include/xlocale.h || ln -s /usr/include/locale.h /usr/include/xlocale.h"
       system bin/"cpan", "-i", "XML::Parser"
       system bin/"cpan", "-i", "XML::SAX"
     end
